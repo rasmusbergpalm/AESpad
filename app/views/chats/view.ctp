@@ -2,20 +2,20 @@
 /*
 Copyright 2010 Rasmus Berg Palm 
 
-This file is part of Obscura.
+This file is part of AesPad.
 
-Obscura is free software: you can redistribute it and/or modify
+AesPad is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-Obscura is distributed in the hope that it will be useful,
+AesPad is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Obscura.  If not, see <http://www.gnu.org/licenses/>.
+along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 
@@ -23,7 +23,7 @@ along with Obscura.  If not, see <http://www.gnu.org/licenses/>.
     
     function periodicalUpdater(message_id) {
         
-        new Ajax.Request('/obscura/messages/messages/<?php echo $Chat["Chat"]["id"] ?>/'+message_id, {
+        new Ajax.Request('/aespad/messages/messages/<?php echo $Chat["Chat"]["id"] ?>/'+message_id, {
             method: 'get',
             onSuccess: function(transport) {
                 messages = eval('(' + transport.responseText + ')');
@@ -52,7 +52,12 @@ along with Obscura.  If not, see <http://www.gnu.org/licenses/>.
     function decrypt(ciphertext){
         var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
         var plaintext = Aes.Ctr.decrypt(ciphertext, password, 256);
-        return plaintext;   
+        return sanitize(plaintext);   
+    }
+    
+    function sanitize(str){
+        var pat = /[\w?,.!:)(\s]/g;
+        return str.match(pat).join('');
     }
     
     function nl2br (str) {
@@ -92,7 +97,7 @@ along with Obscura.  If not, see <http://www.gnu.org/licenses/>.
         if($('name').value != '' && $('password').value != ''){
             var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
         
-            new Ajax.Request("/obscura/chats/signin/<?php echo $Chat['Chat']['id'] ?>", {
+            new Ajax.Request("/aespad/chats/signin/<?php echo $Chat['Chat']['id'] ?>", {
                 method: 'post',
                 parameters: "message="+Sha1.hash(password)+"&author="+Aes.Ctr.encrypt($('name').value, password, 256),
                 onSuccess: function(transport){
