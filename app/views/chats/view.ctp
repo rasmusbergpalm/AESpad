@@ -133,33 +133,58 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
         }
      
     }
+    
+    function testPassword(password){
+        var goodPassword = /(?=^.{20,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\s]).*$/;        
+        if(goodPassword.test(password) == true){
+            $("password_strength").update('Strong key.');
+            $('password').setStyle({
+              backgroundColor: '#D2F5D0'
+            });
+        }else{
+            $('password').setStyle({
+              backgroundColor: '#F5D0D0'
+            });
+            $("password_strength").update('Weak key.');
+        }
+    }
+    
+
 </script>
-<div id='shareurl' style='display: none;'>Send this URL to the persons you want to chat with <br /><input type='text' size='50' readonly value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
-<div id='messages' style='height: 300px; overflow: auto; display: none; text-align: left;'></div>
 
-
-<div id='enter'>
-    <div id='enter_warning' style='display: none;'></div>
+    <div id='shareurl' class='center' style='display: none;'>Send this URL to the persons you want to chat with <br /><input type='text' size='50' readonly value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
+    <div id='messages' style='height: 300px; overflow: auto; display: none; text-align: left;'></div>
     
-    <p>This is a private, secure chat. Please supply the correct password to enter</p>
-    <br />
-    <input type='password' id='password' style='height: 22px; font-size: 22px; width: 200px;'/>
-    <br />
-    <input type='text' id='name' value='<type your name here>'/>
-    <br />
-    <button type='button' onclick='enterChat();'>Enter</button>
-</div>
- 
-<div id='addform' style='display: none'>
-    <div class="messages form">
-        <?php echo $form->create('Message', array('action' => 'add'));?>
     
-        	<?php
-        		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $Chat['Chat']['id']));
-                echo $form->input('message', array('label' => false));
-        	?>
-    
-        <?php //echo $form->button('Submit', array('type'=> 'button', 'onclick'=> 'encryptAndSubmit();'));?>
-        <?php echo $form->end();?>
+    <div id='enter'>
+        <div id='enter_warning' style='display: none;'></div>
+        
+        <p>
+            You are trying to enter chat #<?php echo $Chat['Chat']['id']; ?>. 
+            <br />
+            This is a private, secure chat. Please supply the correct key to enter.
+        </p>
+        <br />
+        <div>Keys should be 20+ characters, have at least one capital letter, one small letter and one non letter.</div>
+        <input type='password' id='password' style='height: 22px; font-size: 22px; width: 300px;' onkeyup='testPassword(this.value);'/><span id='password_strength'></span>
+        <br />
+        <input type='text' id='name' value='<type your name here>'/>
+        <br />
+        <button type='button' onclick='enterChat();'>Enter</button>
     </div>
-</div>
+     
+    <div id='addform' style='display: none'>
+        <div class="messages form">
+            <?php echo $form->create('Message', array('action' => 'add'));?>
+        
+            	<?php
+            		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $Chat['Chat']['id']));
+                    echo "<div class='center'>";
+                    echo $form->input('message', array('label' => false));
+                    echo "</div>";
+            	?>
+        
+            <?php //echo $form->button('Submit', array('type'=> 'button', 'onclick'=> 'encryptAndSubmit();'));?>
+            <?php echo $form->end();?>
+        </div>
+    </div>

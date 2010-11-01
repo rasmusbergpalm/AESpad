@@ -41,23 +41,91 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <div id="main">
             <div id="menubar">
+
+                <div>
+                    <a href='/aespad/' style='text-decoration: none;'>
+                    <img src="/aespad/img/padlock2.png" style="height: 72px; float: left; margin: 0px; padding: 0px;" />
+                    <div style='float: left; margin: 10px 0px 0px 0px; padding: 0px;'>
+                        <h1 style='color: white; font-size: 300%; text-transform: none; display: inline;'>AesPad</h1>
+                    </div>
+                    </a>
+                    <div style='float: right;'>Privacy is a right.</div>
+                    
+                </div>
+                
             </div>
-            <div id="site_content">
-                <div id="content">
-                    <p class='flash_messages'>
-                        <?php echo $this->Session->flash(); ?>
-                    </p>
+            <div id="site_content" style='border-radius: 15px 15px 0px 0px; -moz-border-radius: 15px 15px 0px 0px; '>
+                <div id="content" >
                     <?php echo $content_for_layout; ?>
                 </div>
             
             </div>
             
-            <div id="footer">
-                AesPad by <a href='http://bergpalm.dk'>Rasmus Berg Palm</a>
-                |
-                design by <a href="http://www.dcarter.co.uk">dcarter</a> 
-                | 
-                <a href="http://www.movable-type.co.uk/">AES & SHA1 javascript implementation</a> © 2005-2010 Chris Veness
+            <div id="footer" style='border-radius: 0px 0px 15px 15px; -moz-border-radius: 0px 0px 15px 15px;'>
+                <div class='column'>
+                    <ul>
+                        <li class='header'>
+                            AesPad
+                        </li>
+                        <li>
+                            <?php echo $html->link('Security', '/pages/security'); ?>
+                        </li>
+                        <li>
+                            <?php echo $html->link('How it works', '/pages/innerworkings'); ?>
+                        </li>
+                        <li>
+                            <?php echo $html->link('Concerns', '/pages/concerns'); ?>
+                        </li>
+                    </ul>
+                </div>
+                <div class='column'>
+                    <ul>
+                        <li class='header'>
+                            Community
+                        </li>
+                        <li>
+                            Forums
+                        </li>
+                        <li>
+                            <?php echo $html->link('Twitter', 'http://twitter.com/aespad'); ?>
+                        </li>
+                        <li>
+                            <?php echo $html->link('Facebook', 'http://www.facebook.com/pages/AesPad/164095313611854'); ?>
+                        </li>
+                    </ul>
+                </div>
+                <div class='column'>
+                    <ul>
+                        <li class='header'>
+                            Code
+                        </li>
+                        <li>
+                            Docs
+                        </li>
+                        <li>
+                            Source
+                        </li>
+                        <li>
+                            Join
+                        </li>
+                    </ul>
+                </div>
+                <div class='column'>
+                    <ul>
+                        <li class='header'>
+                            About
+                        </li>
+                        <li>
+                            <?php echo $html->link('About AesPad', '/pages/about'); ?>
+                        </li>
+                        <li>
+                            <?php echo $html->link('Credits', '/pages/credits'); ?>
+                        </li>
+                        <li>
+                            <?php echo $html->link('Ethics', '/pages/ethics'); ?>
+                        </li>
+                    </ul>
+                </div>
             </div>
         
         </div>
