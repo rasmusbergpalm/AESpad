@@ -2,20 +2,20 @@
 /*
 Copyright 2010 Rasmus Berg Palm 
 
-This file is part of AesPad.
+This file is part of AESpad.
 
-AesPad is free software: you can redistribute it and/or modify
+AESpad is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-AesPad is distributed in the hope that it will be useful,
+AESpad is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
+along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 
@@ -31,7 +31,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
                     message_id = messages[messages.length-1].Message.id;
                     
                     messages.each(function(s) {
-                        var message_div = new Element('div', { 'id': 'message'+s.Message.id, }).update(decrypt(s.Message.author) + ': ' + nl2br(decrypt(s.Message.message)));
+                        var message_div = new Element('div', { 'id': 'message'+s.Message.id, }).update('<strong>'+decrypt(s.Message.author) + '</strong>: ' + nl2br(decrypt(s.Message.message)));
                         $('messages').insert({bottom: message_div});
                     });
                     myScrollTo('messages','message'+message_id);
@@ -46,7 +46,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
         var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
         $('MessageMessage').value = Aes.Ctr.encrypt($('MessageMessage').value, password, 256);
         $('MessageAddForm').request();
-        $('MessageMessage').value = '';
+        $('MessageMessage').value = null;
     }
     
     function decrypt(ciphertext){
@@ -105,19 +105,16 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
                     periodicalUpdater(0);
                     Effect.BlindDown('addform');
                     Effect.BlindUp('enter');
-                    $('addform').observe('keypress', keypressHandler);
+                    $('MessageMessage').onkeydown = function(e){
+                        e = e || event;
+                        if (!e.shiftKey && e.keyCode === 13) {
+                            encryptAndSubmit();
+                            return false;
+                        }
+                        return true;
+                    }
                     $('shareurl').toggle();
 
-                    function keypressHandler (event){
-                        var key = event.which || event.keyCode;
-                        switch (key) {
-                            default:
-                            break;
-                            case Event.KEY_RETURN:
-                                encryptAndSubmit(); return false;
-                            break;   
-                        }
-                    }
                 },
                 onFailure: function(transport){
                     $('enter_warning').update(transport.responseText);
@@ -149,42 +146,61 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
         }
     }
     
+    Event.observe(window, 'load',
+      function() { $('password').focus() }
+    );
+    
 
 </script>
 
-    <div id='shareurl' class='center' style='display: none;'>Send this URL to the persons you want to chat with <br /><input type='text' size='50' readonly value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
-    <div id='messages' style='height: 300px; overflow: auto; display: none; text-align: left;'></div>
-    
+    <div id='shareurl' class='center' style='display: none;'>Send this URL to the persons you want to chat with.<br /><input type='text' size='50' readonly value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
+    <div id='messages' class='center' style='height: 280px; padding: 2px; width: 400px; overflow: auto; display: none; text-align: left; margin-top: 8px; margin-bottom: 8px; border: 1px solid lightgrey;'></div>
+
     
     <div id='enter'>
         <div id='enter_warning' style='display: none;'></div>
         
-        <p>
-            You are trying to enter chat #<?php echo $chat_id; ?>. 
+        <?php if($owner && $Chat['Chat']['password'] === null): ?>
+            <h1>You are creating chat #<?php echo $chat_id; ?>.</h1>
             <br />
-            This is a private, secure chat. Please supply the correct key to enter.
-        </p>
-        <br />
-        <div>Keys should be 20+ characters, have at least one capital letter, one small letter and one non letter.</div>
-        <input type='password' id='password' style='height: 22px; font-size: 22px; width: 300px;' onkeyup='testPassword(this.value);'/><span id='password_strength'></span>
-        <br />
-        <input type='text' id='name' value='<type your name here>'/>
-        <br />
+            <h2>You'll need to choose a key for this chat. The key will be needed to join the chat.</h2>
+            <br /> 
+            <?php echo $html->image('090383-black-white-pearl-icon-signs-warning-sign.png', array('style'=>'float: left; height: 200px;')); ?>
+            <br />
+            <h4>A warning about keys</h4>
+            <p>
+            If anyone gets hold of the key, they can read the chat.<br />
+            It is critical that you do not transmit this key in an insecure way. No, the internet is not a secure way.<br />
+            Preferably the key should have been decided upon beforehand in a face to face conversation.<br />
+            Keys should be 20+ characters, have at least one capital letter, one small letter and one non letter. <br />
+            </p>
+            <br style='clear: both;'/>
+            <br />
+        <?php else: ?>
+            <h1>You are trying to enter chat #<?php echo $chat_id; ?>.</h1> 
+            <p>
+                This is a private, secure chat. Please supply the correct key to enter.
+            </p>
+            <br />
+        <?php endif ?>
+        <dl>
+        <dt>Key</dt>
+        <dd><input type='password' id='password' style='height: 22px; font-size: 22px; width: 300px;' onkeyup='testPassword(this.value);'/><span id='password_strength' style='margin-left: 6px;'></span></dd>
+        <dt>Display name</dt>
+        <dd><input type='text' id='name' style='height: 22px; font-size: 22px; width: 300px;' /></dd>
+        </dl>
         <button type='button' onclick='enterChat();'>Enter</button>
     </div>
      
     <div id='addform' style='display: none'>
         <div class="messages form">
-            <?php echo $form->create('Message', array('action' => 'add'));?>
-        
-            	<?php
-            		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $chat_id));
-                    echo "<div class='center'>";
-                    echo $form->input('message', array('label' => false));
-                    echo "</div>";
-            	?>
-        
-            <?php //echo $form->button('Submit', array('type'=> 'button', 'onclick'=> 'encryptAndSubmit();'));?>
-            <?php echo $form->end();?>
+            <?php 
+                echo $form->create('Message', array('action' => 'add'));
+           		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $chat_id));
+                echo "<div class='center'>";
+                echo $form->input('message', array('label' => false, 'style'=>'height: 4em; width: 400px;'));
+                echo "</div>";
+                echo $form->end();
+            ?>
         </div>
     </div>

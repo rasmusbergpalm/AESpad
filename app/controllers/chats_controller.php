@@ -43,7 +43,7 @@ class ChatsController extends AppController {
                     $this->Session->write("chat_$chat_id.author", $this->params['form']['author']);
                 }else{
                     header('HTTP/1.1 403 Forbidden');
-                    echo "Wrong password. Access denied.";
+                    echo "Wrong key. Access denied.";
                     exit;
                 }
             }
@@ -59,6 +59,7 @@ class ChatsController extends AppController {
 			$this->redirect(array('controller' => 'pages', 'action' => 'display', 'index'));
 		}
         $this->set('chat_id', $chat_id);
+        $this->set('owner', $this->Session->read("chat_$chat_id.owner"));
         $this->set('Chat', $this->Chat->read(null, $chat_id));            
 	}
 

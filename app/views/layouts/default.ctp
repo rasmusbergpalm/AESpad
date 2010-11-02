@@ -2,20 +2,20 @@
 /*
 Copyright 2010 Rasmus Berg Palm 
 
-This file is part of AesPad.
+This file is part of AESpad.
 
-AesPad is free software: you can redistribute it and/or modify
+AESpad is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-AesPad is distributed in the hope that it will be useful,
+AESpad is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
+along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -23,7 +23,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
     <head>
         <?php echo $this->Html->charset(); ?>
     	<title>
-    		AesPad | <?php echo $title_for_layout; ?>
+    		AESpad | <?php echo $title_for_layout; ?>
     	</title>
         <?php
             echo $html->meta('icon');
@@ -39,18 +39,17 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
     </head>
 
     <body>
+        <?php echo $html->image('beta.gif', array('style'=>"position: absolute; right: 0px; top: 0px; z-index: 10; margin: 0px; padding: 0px;")); ?>
         <div id="main">
             <div id="menubar">
 
                 <div>
                     <a href='/' style='text-decoration: none;'>
-                    <?php echo $html->image('padlock2.png', array('style'=>"height: 72px; float: left; margin: 0px; padding: 0px;")); ?>
+                    <?php echo $html->image('078082-black-white-pearl-icon-business-lock6-sc48.png', array('style'=>"height: 72px; float: left; margin: 0px; padding: 0px;")); ?>
                     <div style='float: left; margin: 10px 0px 0px 0px; padding: 0px;'>
-                        <h1 style='color: white; font-size: 300%; text-transform: none; display: inline;'>AESPad</h1>
+                        <h1 style='color: white; font-size: 300%; text-transform: none; display: inline;'>AESpad</h1>
                     </div>
                     </a>
-                    <div style='float: right;'>Privacy is a right.</div>
-                    
                 </div>
                 
             </div>
@@ -65,7 +64,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
                 <div class='column'>
                     <ul>
                         <li class='header'>
-                            AesPad
+                            AESpad
                         </li>
                         <li>
                             <?php echo $html->link('Security', '/pages/security'); ?>
@@ -100,10 +99,10 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
                             Code
                         </li>
                         <li>
-                            Docs
+                            <?php echo $html->link('Source', 'http://www.assembla.com/code/aespad/subversion/nodes'); ?>
                         </li>
                         <li>
-                            Source
+                            Docs
                         </li>
                         <li>
                             Join
@@ -116,18 +115,20 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
                             About
                         </li>
                         <li>
-                            <?php echo $html->link('About AesPad', '/pages/about'); ?>
+                            About AESpad
+                            <?php //echo $html->link('About AESpad', '/pages/about'); ?>
                         </li>
                         <li>
                             <?php echo $html->link('Credits', '/pages/credits'); ?>
                         </li>
                         <li>
-                            <?php echo $html->link('Ethics', '/pages/ethics'); ?>
+                            Ethics
+                            <?php //echo $html->link('Ethics', '/pages/ethics'); ?>
                         </li>
                     </ul>
                 </div>
+                
             </div>
-        
         </div>
         <?php echo $this->element('sql_dump'); ?>
     </body>
