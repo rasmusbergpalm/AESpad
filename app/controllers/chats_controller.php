@@ -54,11 +54,11 @@ class ChatsController extends AppController {
     }  
     
    function view($chat_id = null) {
-    //pr($this->Session->read());
         if (!$chat_id) {
 			$this->Session->setFlash(__('Invalid Chat.', true));
 			$this->redirect(array('controller' => 'pages', 'action' => 'display', 'index'));
 		}
+        $this->set('chat_id', $chat_id);
         $this->set('Chat', $this->Chat->read(null, $chat_id));            
 	}
 

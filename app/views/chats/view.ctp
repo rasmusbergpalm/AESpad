@@ -23,7 +23,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
     
     function periodicalUpdater(message_id) {
         
-        new Ajax.Request('/aespad/messages/messages/<?php echo $Chat["Chat"]["id"] ?>/'+message_id, {
+        new Ajax.Request('<?php echo $html->url(array("controller" => "messages", "action" => "messages", $chat_id)); ?>/'+message_id, {
             method: 'get',
             onSuccess: function(transport) {
                 messages = eval('(' + transport.responseText + ')');
@@ -96,8 +96,8 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
     function enterChat(){
         if($('name').value != '' && $('password').value != ''){
             var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
-        
-            new Ajax.Request("/aespad/chats/signin/<?php echo $Chat['Chat']['id'] ?>", {
+                    
+            new Ajax.Request("<?php echo $html->url(array('controller' => 'chats', 'action' => 'signin', $chat_id)); ?>", {
                 method: 'post',
                 parameters: "message="+Sha1.hash(password)+"&author="+Aes.Ctr.encrypt($('name').value, password, 256),
                 onSuccess: function(transport){
@@ -160,7 +160,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
         <div id='enter_warning' style='display: none;'></div>
         
         <p>
-            You are trying to enter chat #<?php echo $Chat['Chat']['id']; ?>. 
+            You are trying to enter chat #<?php echo $chat_id; ?>. 
             <br />
             This is a private, secure chat. Please supply the correct key to enter.
         </p>
@@ -178,7 +178,7 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
             <?php echo $form->create('Message', array('action' => 'add'));?>
         
             	<?php
-            		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $Chat['Chat']['id']));
+            		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $chat_id));
                     echo "<div class='center'>";
                     echo $form->input('message', array('label' => false));
                     echo "</div>";

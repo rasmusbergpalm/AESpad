@@ -43,10 +43,10 @@ along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
             <div id="menubar">
 
                 <div>
-                    <a href='/aespad/' style='text-decoration: none;'>
-                    <img src="/aespad/img/padlock2.png" style="height: 72px; float: left; margin: 0px; padding: 0px;" />
+                    <a href='/' style='text-decoration: none;'>
+                    <?php echo $html->image('padlock2.png', array('style'=>"height: 72px; float: left; margin: 0px; padding: 0px;")); ?>
                     <div style='float: left; margin: 10px 0px 0px 0px; padding: 0px;'>
-                        <h1 style='color: white; font-size: 300%; text-transform: none; display: inline;'>AesPad</h1>
+                        <h1 style='color: white; font-size: 300%; text-transform: none; display: inline;'>AESPad</h1>
                     </div>
                     </a>
                     <div style='float: right;'>Privacy is a right.</div>
