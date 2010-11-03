@@ -1,34 +1,15 @@
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC. Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+## AESpad ##
+AESpad is released under the GNU General Public License version 3.
 
-The Cake Software Foundation - promoting development related to CakePHP
-http://cakefoundation.org/
+AESpad is a secure hosted chat that uses the tried and tested AES encryption algorithm to encrypt messages.
+AESpad relies on a pre-shared key among chat participants.
+The messages are encrypted using an AES javascript implementation before they are sent to the server.
+The key never leaves the client.
 
-CakePHP - the rapid development PHP framework
-http://www.cakephp.org
+## Resources ##
 
-Cookbook - user documentation for learning about CakePHP
-http://book.cakephp.org
+Homepage: http://aespad.com
+Source code: http://www.assembla.com/spaces/aespad
 
-API - quick reference to CakePHP
-http://api.cakephp.org
-
-The Bakery - everything CakePHP
-http://bakery.cakephp.org
-
-The Show - live and archived podcasts about CakePHP and more
-http://live.cakephp.org
-
-CakePHP Google Group - community mailing list and forum
-http://groups.google.com/group/cake-php
-
-#cakephp on irc.freenode.net - chat with CakePHP developers
-irc://irc.freenode.net/cakephp
-
-CakeForge - open development for CakePHP
-http://cakeforge.org
-
-CakePHP gear
-http://www.cafepress.com/cakefoundation
-
-Recommended Reading
-http://astore.amazon.com/cakesoftwaref-20/
+## Authors ##
+Rasmus Berg Palm 
