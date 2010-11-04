@@ -35,10 +35,22 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     		echo $javascript->link('scriptaculous');
     		echo $javascript->link('AES');
     		echo $javascript->link('SHA1');
+    		echo $javascript->link('soundmanager2-nodebug-jsmin');
         ?>
+        <script type="text/javascript">
+            soundManager.url = 'http://localhost/AESpad/soundmanager2.swf';
+            soundManager.onload = function() {
+                soundManager.createSound({
+                    id: 'click',
+                    url: 'http://localhost/AESpad/click.mp3',
+                    volume: 100
+                });
+            } 
+        </script>
     </head>
 
     <body>
+
         <?php echo $html->image('beta.gif', array('style'=>"position: absolute; right: 0px; top: 0px; z-index: 10; margin: 0px; padding: 0px;")); ?>
         <div id="main">
             <div id="menubar">

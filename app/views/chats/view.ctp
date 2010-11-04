@@ -23,25 +23,33 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     $salt = $Chat['Chat']['salt'];
     $password_set = !empty($Chat['Chat']['password']);
 ?>
-  
 <script type='text/javascript'>
-    function periodicalUpdater(message_id) {
-        
+    var message_focus = false;
+    var message_id = 0;
+    
+    function updateChat() {
         new Ajax.Request('<?php echo $html->url(array("controller" => "messages", "action" => "messages", $chat_id)); ?>/'+message_id, {
             method: 'get',
             onSuccess: function(transport) {
                 messages = eval('(' + transport.responseText + ')');
                 if (messages.length >= 1) {
+                    play_sound = false;
+                    
                     message_id = messages[messages.length-1].Message.id;
                     
                     messages.each(function(s) {
-                        var message_div = new Element('div', { 'id': 'message'+s.Message.id, }).update('<strong>'+decrypt(s.Message.author) + '</strong>: ' + nl2br(decrypt(s.Message.message)));
+                        author = decrypt(s.Message.author);
+                        if($('name').value != author){
+                            play_sound = true;    
+                        }
+                        var message_div = new Element('div', { 'id': 'message'+s.Message.id, }).update('<strong>'+author + '</strong>: ' + nl2br(decrypt(s.Message.message)));
                         $('messages').insert({bottom: message_div});
                     });
+                    if(play_sound==true){
+                        soundManager.play('click'); 
+                    }
                     myScrollTo('messages','message'+message_id);
-
                 }
-                setTimeout(periodicalUpdater(message_id), 1000);
             }
         });
     }
@@ -104,8 +112,11 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
             new Ajax.Request("<?php echo $html->url(array('controller' => 'chats', 'action' => 'signin', $chat_id)); ?>/"+Aes.Ctr.encrypt($('name').value, password, 256)+"/"+Sha1.hash(password), {
                 method: 'get',
                 onSuccess: function(transport){
+                    
+                    $('MessageMessage').observe('focus', function(){message_focus = true});
+                    $('MessageMessage').observe('blur', function(){message_focus = false});
                     Effect.BlindDown('messages', {afterFinish:function(){$('messages').style.overflow='auto'}});
-                    periodicalUpdater(0);
+                    new PeriodicalExecuter(updateChat, 1);
                     Effect.BlindDown('addform');
                     Effect.BlindUp('enter');
                     $('MessageMessage').onkeydown = function(e){
