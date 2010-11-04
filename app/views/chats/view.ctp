@@ -18,9 +18,13 @@ You should have received a copy of the GNU General Public License
 along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
-
+<?php
+    $chat_id = $Chat['Chat']['id'];
+    $salt = $Chat['Chat']['salt'];
+    $password_set = !empty($Chat['Chat']['password']);
+?>
+  
 <script type='text/javascript'>
-    
     function periodicalUpdater(message_id) {
         
         new Ajax.Request('<?php echo $html->url(array("controller" => "messages", "action" => "messages", $chat_id)); ?>/'+message_id, {
@@ -43,21 +47,22 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     }
     
     function encryptAndSubmit(){
-        var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
+        var password = $('password').value + "<?php echo $salt ?>";
         $('MessageMessage').value = Aes.Ctr.encrypt($('MessageMessage').value, password, 256);
         $('MessageAddForm').request();
         $('MessageMessage').value = null;
     }
     
     function decrypt(ciphertext){
-        var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
+        var password = $('password').value + "<?php echo $salt ?>";
         var plaintext = Aes.Ctr.decrypt(ciphertext, password, 256);
         return sanitize(plaintext);   
     }
     
-    function sanitize(str){
-        var pat = /[\w?,.!:)(\s]/g;
-        return str.match(pat).join('');
+    function sanitize(str){ //TODO: Will this really protect against all injection attacks?
+        str = str.replace(/[<]/g, '&lt;');
+        str = str.replace(/[>]/g, '&gt;');
+        return str;
     }
     
     function nl2br (str) {
@@ -95,11 +100,9 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     
     function enterChat(){
         if($('name').value != '' && $('password').value != ''){
-            var password = $('password').value + "<?php echo $Chat['Chat']['salt'] ?>";
-                    
-            new Ajax.Request("<?php echo $html->url(array('controller' => 'chats', 'action' => 'signin', $chat_id)); ?>", {
-                method: 'post',
-                parameters: "message="+Sha1.hash(password)+"&author="+Aes.Ctr.encrypt($('name').value, password, 256),
+            var password = $('password').value + "<?php echo $salt ?>";
+            new Ajax.Request("<?php echo $html->url(array('controller' => 'chats', 'action' => 'signin', $chat_id)); ?>/"+Aes.Ctr.encrypt($('name').value, password, 256)+"/"+Sha1.hash(password), {
+                method: 'get',
                 onSuccess: function(transport){
                     Effect.BlindDown('messages', {afterFinish:function(){$('messages').style.overflow='auto'}});
                     periodicalUpdater(0);
@@ -160,7 +163,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     <div id='enter'>
         <div id='enter_warning' style='display: none;'></div>
         
-        <?php if($owner && $Chat['Chat']['password'] === null): ?>
+        <?php if($owner && $password_set === false): ?>
             <h1>You are creating chat #<?php echo $chat_id; ?>.</h1>
             <br />
             <h2>You'll need to choose a key for this chat. The key will be needed to join the chat.</h2>

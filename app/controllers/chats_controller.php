@@ -2,20 +2,20 @@
 /*
 Copyright 2010 Rasmus Berg Palm 
 
-This file is part of AesPad.
+This file is part of AESpad.
 
-AesPad is free software: you can redistribute it and/or modify
+AESpad is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
-AesPad is distributed in the hope that it will be useful,
+AESpad is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with AesPad.  If not, see <http://www.gnu.org/licenses/>.
+along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <?php
@@ -23,24 +23,25 @@ class ChatsController extends AppController {
 
 	public $helpers = array('Html', 'Form');
 	
-    function signin($chat_id = null){
-        if(!empty($this->params['form'])){
+    function signin($chat_id = null, $author = null, $password = null){
+        list($chat_id, $author, $password) = $this->paranoid(array($chat_id, $author, $password));
+        if(!empty($chat_id) && !empty($author)  && !empty($password)){
             if($this->Session->read("chat_$chat_id.owner") == true){
                 $this->Session->write("chat_$chat_id.access", true);
-                $this->Session->write("chat_$chat_id.author", $this->params['form']['author']);
+                $this->Session->write("chat_$chat_id.author", $author);
                 $this->Chat->Message->create();
                 $this->data = array(
                     'Chat' => array(
                         'id' => $chat_id,
-                        'password' => $this->params['form']['message'] 
+                        'password' => $password 
                     )
                 );
                 $this->Chat->save($this->data);
             }else{
                 $chat = $this->Chat->read(null, $chat_id);
-                if(!empty($chat['Chat']['password']) && $chat['Chat']['password'] === $this->params['form']['message']){
+                if(!empty($chat['Chat']['password']) && $chat['Chat']['password'] === $password){
                     $this->Session->write("chat_$chat_id.access", true);
-                    $this->Session->write("chat_$chat_id.author", $this->params['form']['author']);
+                    $this->Session->write("chat_$chat_id.author", $author);
                 }else{
                     header('HTTP/1.1 403 Forbidden');
                     echo "Wrong key. Access denied.";
@@ -53,14 +54,15 @@ class ChatsController extends AppController {
         }                
     }  
     
-   function view($chat_id = null) {
-        if (!$chat_id) {
+   function view($chat_id = null) { //TODO: Think up some way of not letting the user know whether chat X exists. Right now he can see it on the salt and id not being set
+        list($chat_id) = $this->paranoid(array($chat_id));
+
+        if (empty($chat_id)) {
 			$this->Session->setFlash(__('Invalid Chat.', true));
 			$this->redirect(array('controller' => 'pages', 'action' => 'display', 'index'));
 		}
-        $this->set('chat_id', $chat_id);
         $this->set('owner', $this->Session->read("chat_$chat_id.owner"));
-        $this->set('Chat', $this->Chat->read(null, $chat_id));            
+        $this->set('Chat', $this->Chat->read(null, $chat_id));                    
 	}
 
 	function create(){

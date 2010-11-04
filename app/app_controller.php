@@ -19,10 +19,18 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <?php
+App::import('Sanitize');
 class AppController extends Controller {
     var $components = array('Session', 'RequestHandler');
     var $helpers = array('Html', 'Form', 'Ajax', 'Session', 'Javascript');
 
+    function paranoid($vars){
+        foreach($vars as &$var){
+            $var = Sanitize::paranoid($var, array('.', '-', '='));
+        }
+        return $vars;    
+    }
+    
         
 }
 ?>
