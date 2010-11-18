@@ -36,3 +36,10 @@ dd{
     margin: 0px;
     padding: 0px;
 }
+.credits{
+    text-align: center;
+    color: #555;   
+}
+.credits a{
+    color: #555;   
+}

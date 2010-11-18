@@ -130,7 +130,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
                             <?php //echo $html->link('About AESpad', '/pages/about'); ?>
                         </li>
                         <li>
-                            <?php echo $html->link('Credits', '/pages/credits'); ?>
+                            Credits
+                            <?php //echo $html->link('Credits', '/pages/credits'); ?>
                         </li>
                         <li>
                             Ethics
@@ -139,6 +140,11 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
                     </ul>
                 </div>
                 
+            </div>
+            <div class='credits'>
+                AESpad by <?php echo $html->link('Rasmus Berg Palm', 'http://bergpalm.dk'); ?> | 
+                design by <?php echo $html->link('dcarter','http://www.dcarter.co.uk/'); ?> | 
+                crypto libs by <?php echo $html->link('Chris Veness','http://www.movable-type.co.uk/'); ?>
             </div>
         </div>
         <?php echo $this->element('sql_dump'); ?>
