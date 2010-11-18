@@ -38,11 +38,11 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     		echo $javascript->link('soundmanager2-nodebug-jsmin');
         ?>
         <script type="text/javascript">
-            soundManager.url = 'http://<?php echo $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];?>/soundmanager2.swf';
+            soundManager.url = '<?php echo $html->url("/soundmanager2.swf", true); ?>';
             soundManager.onload = function() {
                 soundManager.createSound({
                     id: 'click',
-                    url: 'http://<?php echo $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];?>/click.mp3',
+                    url: '<?php echo $html->url("/click.mp3", true); ?>',
                     volume: 100
                 });
             } 
