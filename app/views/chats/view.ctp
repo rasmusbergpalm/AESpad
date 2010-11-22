@@ -18,11 +18,6 @@ You should have received a copy of the GNU General Public License
 along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
-<?php
-    $chat_id = $Chat['Chat']['id'];
-    $salt = $Chat['Chat']['salt'];
-    $password_set = !empty($Chat['Chat']['password']);
-?>
 <script type='text/javascript'>
     var message_focus = false;
     var message_id = 0;
@@ -55,14 +50,14 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     }
     
     function encryptAndSubmit(){
-        var password = $('password').value + "<?php echo $salt ?>";
+        var password = $('password').value;
         $('MessageMessage').value = Aes.Ctr.encrypt($('MessageMessage').value, password, 256);
         $('MessageAddForm').request();
         $('MessageMessage').value = null;
     }
     
     function decrypt(ciphertext){
-        var password = $('password').value + "<?php echo $salt ?>";
+        var password = $('password').value;
         var plaintext = Aes.Ctr.decrypt(ciphertext, password, 256);
         return sanitize(plaintext);   
     }
@@ -108,7 +103,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     
     function enterChat(){
         if($('name').value != '' && $('password').value != ''){
-            var password = $('password').value + "<?php echo $salt ?>";
+            var password = $('password').value;
             new Ajax.Request("<?php echo $html->url(array('controller' => 'chats', 'action' => 'signin', $chat_id)); ?>/"+Aes.Ctr.encrypt($('name').value, password, 256)+"/"+Sha1.hash(password), {
                 method: 'get',
                 onSuccess: function(transport){
@@ -174,8 +169,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     <div id='enter'>
         <div id='enter_warning' style='display: none;'></div>
         
-        <?php if($owner && $password_set === false): ?>
-            <h1>You are creating chat #<?php echo $chat_id; ?>.</h1>
+        <?php if($owner && $keyhash_empty === true): ?>
+            <h1>You are creating a chat.</h1>
             <br />
             <h2>You'll need to choose a key for this chat. The key will be needed to join the chat.</h2>
             <br /> 
@@ -191,7 +186,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
             <br style='clear: both;'/>
             <br />
         <?php else: ?>
-            <h1>You are trying to enter chat #<?php echo $chat_id; ?>.</h1> 
+            <h1>You are trying to join a chat.</h1> 
             <p>
                 This is a private, secure chat. Please supply the correct key to enter.
             </p>

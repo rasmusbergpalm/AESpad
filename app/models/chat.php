@@ -37,4 +37,5 @@ class Chat extends AppModel {
 							'counterQuery' => ''
 		)
 	);
+	 
 }

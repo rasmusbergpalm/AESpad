@@ -130,8 +130,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
                             <?php //echo $html->link('About AESpad', '/pages/about'); ?>
                         </li>
                         <li>
-                            Credits
-                            <?php //echo $html->link('Credits', '/pages/credits'); ?>
+                            Legal
+                            <?php //echo $html->link('Legal', '/pages/legal'); ?>
                         </li>
                         <li>
                             Ethics

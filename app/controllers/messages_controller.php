@@ -22,8 +22,10 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 class MessagesController extends AppController {
 
 	public $helpers = array('Html', 'Form');
+    var $components = array('Session', 'RequestHandler', 'Base62');
 
 	function messages($chat_id = null, $message_id = null){
+	    $chat_id = $this->Base62->decode($chat_id);
         list($chat_id, $message_id) = $this->paranoid(array($chat_id, $message_id));
         if($this->Session->read("chat_$chat_id.access") != true) exit;
         
@@ -37,7 +39,8 @@ class MessagesController extends AppController {
     }
     
     function add() {
-        list($chat_id, $message) = $this->paranoid(array($this->data['Message']['chat_id'], $this->data['Message']['message']));
+        $chat_id = $this->Base62->decode($this->data['Message']['chat_id']);
+        list($chat_id, $message) = $this->paranoid(array($chat_id, $this->data['Message']['message']));
         if($this->Session->read("chat_$chat_id.access") != true) exit;    
         
         if (!empty($chat_id) && !empty($message)) {  
