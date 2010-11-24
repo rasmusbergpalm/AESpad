@@ -57,6 +57,15 @@ class ChatsController extends AppController {
             exit;        
         }                
     }
+   
+    public function cleanup(){
+        if((time()-Cache::read('cleanup')) > 43200){
+            $this->Chat->deleteAll(array(
+                'Chat.updated <' => date('Y-m-d H:i:s', strtotime('-24 hours'))           
+            ));            
+            Cache::write('cleanup', time());
+        }
+    }
     
    public function view($chat_id = null) {
         $chat_id = $this->Base62->decode($chat_id);

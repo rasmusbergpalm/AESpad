@@ -47,4 +47,9 @@ class Message extends AppModel {
                  ) 
             )
         );
+        
+    public function afterSave(){
+        $this->Chat->id = $this->data['Message']['chat_id'];
+        $this->Chat->saveField('updated', date('Y-m-d H:i:s', time()));    
+    }
 }
