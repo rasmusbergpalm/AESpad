@@ -35,6 +35,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     		echo $javascript->link('scriptaculous');
     		echo $javascript->link('AES');
     		echo $javascript->link('SHA1');
+    		echo $javascript->link('nl2br');
+    		echo $javascript->link('myScrollTo');
     		echo $javascript->link('soundmanager2-nodebug-jsmin');
         ?>
         <script type="text/javascript">

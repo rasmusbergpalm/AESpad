@@ -68,39 +68,6 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         return str;
     }
     
-    function nl2br (str) {
-        // http://kevin.vanzonneveld.net
-        // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-        // +   improved by: Philip Peterson
-        // +   improved by: Onno Marsman
-        // +   improved by: Atli Þór
-        // +   bugfixed by: Onno Marsman
-        // +      input by: Brett Zamir (http://brett-zamir.me)
-        // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-        // +   improved by: Brett Zamir (http://brett-zamir.me)
-        // +   improved by: Maximusya
-        // *     example 1: nl2br('Kevin\nvan\nZonneveld');
-        // *     returns 1: 'Kevin<br />\nvan<br />\nZonneveld'
-        // *     example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
-        // *     returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
-        // *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
-        // *     returns 3: '<br />\nOne<br />\nTwo<br />\n<br />\nThree<br />\n'
-    
-        var breakTag = '<br />';
-    
-        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1'+ breakTag +'$2');
-    }
-    
-    function myScrollTo(container, element){
-        container = $(container); 
-        element = $(element); 
-        var x = element.x ? element.x : element.offsetLeft,
-            y = element.y ? element.y : element.offsetTop;
-        container.scrollLeft=x-(document.all?0:container.offsetLeft );
-        container.scrollTop=y-(document.all?0:container.offsetTop);
-        return element;
-    }
-    
     function enterChat(){
         if($('name').value != '' && $('password').value != ''){
             var password = $('password').value;
