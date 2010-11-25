@@ -19,7 +19,12 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <div style='left:0 auto; text-align: center;'>
+AESpad is a secure, private, use-and-dispose online chat.
+<br />
+ 
+<br />
 <?php
-    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.png", array('style' => 'height: 384px;'))."<br /><h1>Create secure chat.</h1>" , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;'));
+    
+    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;'))."<br /><h1>Create secure chat.</h1>" , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;'));
 ?>
 </div>
