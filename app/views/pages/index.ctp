@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
+<?php echo $this->Html->script('ga', array('inline' => false)); ?>
 <div style='left:0 auto; text-align: center;'>
 AESpad is a secure, private, use-and-dispose online chat.
 <br />
@@ -25,6 +26,6 @@ AESpad is a secure, private, use-and-dispose online chat.
 <br />
 <?php
     
-    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;'))."<br /><h1>Create secure chat.</h1>" , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;'));
+    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;'))."<br /><h1>Create secure chat.</h1>" , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;', 'onclick' => "javascript: pageTracker._trackPageview('/chats/create');"));
 ?>
 </div>

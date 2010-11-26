@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
+<?php echo $this->Html->script('ga', array('inline' => false)); ?>
 <div class='infobox image' style='background: url(../img/090348-black-white-pearl-icon-signs-nosign.png) no-repeat 105% 5%'>
     <h1>Not proven secure. Yet.</h1>
     <ul style='width: 350px;'>

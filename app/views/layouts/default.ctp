@@ -30,7 +30,6 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
             echo $html->css('color2/style');
             echo $html->css('color2/color2');
             echo $html->css('color2/changes');
-    		echo $scripts_for_layout;
     		echo $javascript->link('prototype');
     		echo $javascript->link('scriptaculous');
     		echo $javascript->link('AES');
@@ -38,6 +37,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     		echo $javascript->link('nl2br');
     		echo $javascript->link('myScrollTo');
     		echo $javascript->link('soundmanager2-nodebug-jsmin');
+    		echo $scripts_for_layout;
         ?>
         <script type="text/javascript">
             soundManager.url = '<?php echo $html->url("/soundmanager2.swf", true); ?>';

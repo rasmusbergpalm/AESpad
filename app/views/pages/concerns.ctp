@@ -18,6 +18,7 @@ You should have received a copy of the GNU General Public License
 along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
+<?php echo $this->Html->script('ga', array('inline' => false)); ?>
 <?php echo $html->link('<h1>Got a concern?</h1>','http://www.assembla.com/spaces/aespad/support/tickets', array('escape'=>false)); ?>
 <?php
     App::import('Core',  'Xml');
