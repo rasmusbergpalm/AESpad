@@ -22,22 +22,22 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     var message_focus = false;
     var message_id = 0;
     
-    function updateChat() {
+    function updateChat() { 
+        
         new Ajax.Request('<?php echo $html->url(array("controller" => "messages", "action" => "messages", $chat_id)); ?>/'+message_id, {
             method: 'get',
             onSuccess: function(transport) {
-                messages = eval('(' + transport.responseText + ')');
-                if (messages.length >= 1) {
+                msgs = transport.responseText.evalJSON();
+                if (msgs.length >= 1) {
                     play_sound = false;
-                    
-                    message_id = messages[messages.length-1].Message.id;
-                    
-                    messages.each(function(s) {
+                    message_id = msgs[msgs.length-1].Message.id;
+                   
+                    msgs.each(function(s) {
                         author = decrypt(s.Message.author);
                         if($('name').value != author){
                             play_sound = true;    
                         }
-                        var message_div = new Element('div', { 'id': 'message'+s.Message.id, }).update('<strong>'+author + '</strong>: ' + nl2br(decrypt(s.Message.message)));
+                        var message_div = new Element('div', { 'id': 'message'+s.Message.id}).update('<strong>'+author + '</strong>: ' + nl2br(decrypt(s.Message.message)));
                         $('messages').insert({bottom: message_div});
                     });
                     if(play_sound==true){
@@ -50,10 +50,12 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     }
     
     function encryptAndSubmit(){
-        var password = $('password').value;
-        $('MessageMessage').value = Aes.Ctr.encrypt($('MessageMessage').value, password, 256);
-        $('MessageAddForm').request();
-        $('MessageMessage').value = null;
+        if($('MessageMessage').value != ''){
+            var password = $('password').value;
+            $('MessageMessage').value = Aes.Ctr.encrypt($('MessageMessage').value, password, 256);
+            $('MessageAddForm').request();
+            $('MessageMessage').value = '';
+        }
     }
     
     function decrypt(ciphertext){
@@ -100,7 +102,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
             });
             
         }else{
-            $('enter_warning').update("You have to fill in both name and password");
+            $('enter_warning').update("You have to fill in both key and name");
             Effect.Appear('enter_warning');
             $('enter_warning').highlight();
         }
@@ -161,11 +163,11 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         <?php endif ?>
         <dl>
         <dt>Key</dt>
-        <dd><input type='password' id='password' style='height: 22px; font-size: 22px; width: 300px;' onkeyup='testPassword(this.value);'/><span id='password_strength' style='margin-left: 6px;'></span></dd>
+        <dd><input type='password' id='password' style='height: 22px; font-size: 22px; width: 300px;' onkeyup='javascript:testPassword(this.value);'/><span id='password_strength' style='margin-left: 6px;'></span></dd>
         <dt>Display name</dt>
         <dd><input type='text' id='name' style='height: 22px; font-size: 22px; width: 300px;' /></dd>
         </dl>
-        <button type='button' onclick='enterChat();'>Enter</button>
+        <button type='button' onclick='javascript:enterChat();'>Enter</button>
     </div>
      
     <div id='addform' style='display: none'>

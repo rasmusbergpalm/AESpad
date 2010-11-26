@@ -27,8 +27,9 @@ class MessagesController extends AppController {
 	function messages($chat_id = null, $message_id = null){
 	    $chat_id = $this->Base62->decode($chat_id);
         list($chat_id, $message_id) = $this->paranoid(array($chat_id, $message_id));
+        $this->disableCache();
         if($this->Session->read("chat_$chat_id.access") != true) exit;
-        
+                
         $this->set('messages', $this->Message->find('all', array(
             'conditions' => array(
                 'Message.chat_id' => $chat_id,
