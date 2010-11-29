@@ -23,7 +23,10 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 Communicating in a secure and private manner online is difficult.<br />
 AESpad makes it easy. No download, no setup, just chat.<br /><br />
 <?php
+    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;')) , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;', 'onclick' => "javascript: pageTracker._trackPageview('/chats/create');"));
+    echo '<br />';
+    echo '<h1>'.$html->link('Create secure chat' , array('controller' => 'chats', 'action' => 'create'), array('style'=>'text-decoration: none;', 'onclick' => "javascript: pageTracker._trackPageview('/chats/create');")).'</h1>';
     
-    echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;'))."<br /><h1>Create secure chat.</h1>" , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'style'=>'text-decoration: none;', 'onclick' => "javascript: pageTracker._trackPageview('/chats/create');"));
+    
 ?>
 </div>

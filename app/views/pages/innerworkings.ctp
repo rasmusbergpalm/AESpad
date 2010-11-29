@@ -41,6 +41,6 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         <li>AESpad's source code is freely available for download and review.</li>
         <li>No backdoors, no master keys. Take a look for yourself.</li>
         <li>If you don't trust this AESpad server, you can host one yourself.</li>
-        <li>Open policy: All concerns raised by the community are made available <?php echo $html->link('here', 'pages/concerns'); ?>.</li>
+        <li>Open policy: All concerns raised by the community are made available <?php echo $html->link('here', '/pages/concerns'); ?>.</li>
     </ul>
 </div>

@@ -24,8 +24,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     <ul style='width: 350px;'>
         <li>AESpad was created by a single person which is in essence an amateur security enthusiast.</li>
         <li>AESpad is not tried, tested and proven such as other crypthographic software out there.</li>
-        <li>You should take a look at the <?php echo $html->link('inner workings', 'pages/innerworkings'); ?> to understand why I think AESpad is pretty secure after all.</li>
-        <li>You should take a look at the <?php echo $html->link('list of concerns', 'pages/concerns'); ?> to see what concerns the community and I have.</li>
+        <li>You should take a look at the <?php echo $html->link('inner workings', '/pages/innerworkings'); ?> to understand why I think AESpad is pretty secure after all.</li>
+        <li>You should take a look at the <?php echo $html->link('list of concerns', '/pages/concerns'); ?> to see what concerns the community and I have.</li>
         <li>You should decide for yourself whether you think AESpad is secure.</li>
         <li>You should look into <?php echo $html->link('other software', 'http://en.wikipedia.org/wiki/Secure_communication#Programs_offering_more_secure_communications'); ?> if you're not comfortable with using AESpad.</li>
     </ul>
