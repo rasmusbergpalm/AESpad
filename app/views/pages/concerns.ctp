@@ -19,9 +19,11 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <?php echo $this->Html->script('ga', array('inline' => false)); ?>
-<?php echo '<h1>'.$html->link('Got a concern?</h1>','http://www.assembla.com/spaces/aespad/support/tickets', array('escape'=>false)).'</h1>'; ?>
+<?php echo '<h1>'.$html->link('Got a concern?','http://www.assembla.com/spaces/aespad/support/tickets', array('escape'=>false)).'</h1>'; ?>
 <?php
     App::import('Core',  'Xml');
+    App::import('Sanitize');
+    
     $concerns_xml = Set::reverse(new Xml("http://www.assembla.com/spaces/aespad/tickets/custom_report/18687.xml"));
     //pr($concerns_xml);
     $concerns = array();
@@ -30,6 +32,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     }else{
         $concerns = $concerns_xml['Tickets']['Ticket'];
     }
+    
+    array_walk_recursive(&$concerns, function(&$string){$string = Sanitize::html($string);}); //Remove HTML chars from array
     foreach($concerns as $concern){
         echo "<div class='infobox'>";        
         echo "<h1>".$concern['summary']."</h1>";
