@@ -22,7 +22,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 App::import('Sanitize');
 class AppController extends Controller {
     var $components = array('Session', 'RequestHandler');
-    var $helpers = array('Html', 'Form', 'Ajax', 'Session', 'Javascript');
+    var $helpers = array('Html', 'Form', 'Ajax', 'Session', 'Javascript', 'Cache');
 
     function paranoid($vars){
         foreach($vars as &$var){
