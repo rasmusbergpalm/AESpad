@@ -19,6 +19,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <script type='text/javascript'>
+/* <![CDATA[ */
     var message_focus = false;
     var message_id = 0;
     
@@ -128,10 +129,10 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
       function() { $('password').focus() }
     );
     
-
+/* ]]> */
 </script>
 
-    <div id='shareurl' class='center' style='display: none;'>Send this URL to the persons you want to chat with.<br /><input type='text' size='50' readonly value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
+    <div id='shareurl' class='center' style='display: none;'>Send this URL to the persons you want to chat with.<br /><input type='text' size='50' readonly='readonly' value='<?php echo 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; ?>' /></div>
     <div id='messages' class='center' style='height: 280px; padding: 2px; width: 400px; overflow: auto; display: none; text-align: left; margin-top: 8px; margin-bottom: 8px; border: 1px solid lightgrey;'></div>
 
     
@@ -174,8 +175,8 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         <div class="messages form">
             <?php 
                 echo $form->create('Message', array('action' => 'add'));
-           		echo $form->input('chat_id', array('type' => 'hidden', 'value' => $chat_id));
-                echo "<div class='center'>";
+           		echo "<div class='center'>";
+                echo $form->input('chat_id', array('type' => 'hidden', 'value' => $chat_id));
                 echo $form->input('message', array('label' => false, 'style'=>'height: 4em; width: 400px;'));
                 echo "</div>";
                 echo $form->end();
