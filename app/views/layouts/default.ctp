@@ -21,7 +21,6 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <meta name="google-site-verification" content="bqWaYk0ROQ4uY_iOM4PF8sK1AW98qq9ePTzZ5mpkJl8" />
         <?php echo $this->Html->charset(); ?>
     	<title>
     		AESpad | <?php echo $title_for_layout; ?>
