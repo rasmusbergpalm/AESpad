@@ -64,7 +64,6 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
                     <div style='float: left; margin: 10px 0px 0px 0px; padding: 0px;'>
                         <h1 style='font-size: 300%; text-transform: none; display: inline;'><a href='/' style='color: white; text-decoration: none;'>AESpad</a></h1>
                     </div>
-                    </a>
                 </div>
                 
             </div>

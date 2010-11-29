@@ -19,7 +19,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
 */
 ?>
 <?php echo $this->Html->script('ga', array('inline' => false)); ?>
-<?php echo $html->link('<h1>Got a concern?</h1>','http://www.assembla.com/spaces/aespad/support/tickets', array('escape'=>false)); ?>
+<?php echo '<h1>'.$html->link('Got a concern?</h1>','http://www.assembla.com/spaces/aespad/support/tickets', array('escape'=>false)).'</h1>'; ?>
 <?php
     App::import('Core',  'Xml');
     $concerns_xml = Set::reverse(new Xml("http://www.assembla.com/spaces/aespad/tickets/custom_report/18687.xml"));
@@ -38,15 +38,3 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         echo "</div>";
     }
 ?>
-<!--div class='infobox'>
-    <h1>The client must trust the content sent by the server.</h1>
-    <p>Severity: 10. Occurence: 8. Detectability: 5. Risk priority number: 400</p>
-    <ul style='width: 350px;'>
-        <li>Concern raised by <?php echo $html->link('Yakk', 'http://forums.xkcd.com/memberlist.php?mode=viewprofile&u=4253'); ?> in a xkcd forum thread <?php echo $html->link('here', 'http://forums.xkcd.com/viewtopic.php?f=11&t=65584'); ?>
-        <li>If the AESpad server was compromised OR if a man-in-the-middle could intercept and change the http stream, the content sent to the client could be changed.</li>
-        <li>Specifically, the javascript could be modified to send the keys or the plaintext messages to an attacker.</li>
-        <li>Man-in-the-middle attack is mitigated by use of https and SSL certificates.</li>
-        <li>The user could inspect everything sent by the server, but this is not practically possible.</li>
-        <li>Automatic verification of the content sent should somehow be established. Ideas anyone?</li>
-    </ul>
-</div-->
