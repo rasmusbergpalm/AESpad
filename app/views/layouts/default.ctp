@@ -23,7 +23,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     <head>
         <?php echo $this->Html->charset(); ?>
     	<title>
-    		AESpad | <?php echo $title_for_layout; ?>
+    		AESpad.com | Secure online chat | <?php echo $title_for_layout; ?>
     	</title>
         <?php
             echo $html->meta('icon');
