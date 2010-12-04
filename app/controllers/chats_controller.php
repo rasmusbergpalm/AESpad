@@ -60,6 +60,10 @@ class ChatsController extends AppController {
    
     public function cleanup(){
         if((time()-Cache::read('cleanup')) > 43200){
+            $all_chats =  $this->Chat->find('count');
+            $started_chats =  $this->Chat->find('count', array('conditions' => array('keyhash' => 'NOT NULL')));
+            $all_messages = $this->Chat->Message->find('count');
+            file_put_contents(LOGS.'activity.csv',date('d-m-Y').";$all_chats;$started_chats;$all_messages\n",FILE_APPEND); 
             $this->Chat->deleteAll(array(
                 'Chat.updated <' => date('Y-m-d H:i:s', strtotime('-24 hours'))           
             ));            
