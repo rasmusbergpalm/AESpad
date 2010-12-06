@@ -30,6 +30,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
             echo $html->css('color2/style');
             echo $html->css('color2/color2');
             echo $html->css('color2/changes');
+            echo $html->css('color2/modalbox');
     		echo $javascript->link('prototype');
     		echo $javascript->link('scriptaculous');
     		echo $javascript->link('AES');
@@ -37,6 +38,7 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
     		echo $javascript->link('nl2br');
     		echo $javascript->link('myScrollTo');
     		echo $javascript->link('soundmanager2-nodebug-jsmin');
+    		echo $javascript->link('modalbox');
     		echo $scripts_for_layout;
         ?>
         <script type="text/javascript">
