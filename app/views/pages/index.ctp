@@ -28,4 +28,6 @@ AESpad makes it easy. No download, no setup, just chat.<br /><br />
     echo $html->link($html->image("078082-black-white-pearl-icon-business-lock6-sc48.small.png", array('style' => 'height: 300px;')) , array('controller' => 'chats', 'action' => 'create'), array('escape' => false, 'onclick' => "javascript: pageTracker._trackPageview('/chats/create');"));
     
 ?>
+
 </div>
+<iframe src="http://www.facebook.com/plugins/like.php?href=https%3A%2F%2Faespad.com&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
