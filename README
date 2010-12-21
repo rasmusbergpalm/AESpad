@@ -12,4 +12,30 @@ Homepage: http://aespad.com
 Source code: http://www.assembla.com/spaces/aespad
 
 ## Authors ##
-Rasmus Berg Palm 
+Rasmus Berg Palm
+
+## Running it locally ##
+Prerequisites: apache, php and mysql installed and working
+1. Checkout http://svn.assembla.com/svn/aespad/trunk to a folder 
+2. Create an apache virtual host:
+    Listen 8080
+    <VirtualHost *:8080>
+        DocumentRoot "full/path/to/folder"
+    </VirtualHost>
+3. Set write permissions on app/tmp (and subfolders) to write for the apache user
+4. create app/config/database.php with the following contents:
+    <?php
+    class DATABASE_CONFIG {
+    	var $default = array(
+    		'driver' => 'mysql',
+    		'persistent' => false,
+    		'host' => 'localhost',
+    		'login' => 'mysql_user',
+    		'password' => 'mysql_password',
+    		'database' => 'aespad',
+    		'prefix' => 'aespad_',
+    	);
+    }
+    ?>   
+5. Create database 'aespad' and run app/config/schema/aespad.sql
+ 
