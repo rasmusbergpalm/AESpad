@@ -125,6 +125,14 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         }
     }
     
+    function acceptTOS(){
+        if($('accept_checkbox').checked==true){
+            $("enterbutton").disabled="";
+        }else{
+            $("enterbutton").disabled="disabled";            
+        }
+    }
+    
     Event.observe(window, 'load',
       function() { $('password').focus() }
     );
@@ -168,7 +176,9 @@ along with AESpad.  If not, see <http://www.gnu.org/licenses/>.
         <dt>Display name</dt>
         <dd><input type='text' id='name' style='height: 22px; font-size: 22px; width: 300px;' /></dd>
         </dl>
-        <button type='button' onclick='javascript:enterChat();'>Enter</button>
+        <input type='checkbox' id='accept_checkbox' onclick='javascript:acceptTOS();' /> I have read and agree to the <?php echo $html->link('terms of service', array('controller' => 'pages', 'action' => 'display', 'terms'), array('onclick'=>'Modalbox.show(this.href,{title:"Terms of service",width:700}); return false;'));?>.        
+        <br />
+        <button type='button' id='enterbutton' disabled='disabled' onclick='javascript:enterChat();'>Enter</button>
     </div>
      
     <div id='addform' style='display: none'>
